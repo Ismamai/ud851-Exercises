@@ -15,13 +15,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    // COMPLETED (1) Create a key String called LIFECYCLE_CALLBACKS_TEXT_KEY
-    /*
-     * This constant String will be used to store the content of the TextView used to display the
-     * list of callbacks. The reason we are storing the contents of the TextView is so that you can
-     * see the entire set of callbacks as they are called.
-     */
-    private static final String LIFECYCLE_CALLBACKS_TEXT_KEY = "callbacks";
+    // TODO (1) Create a key String called LIFECYCLE_CALLBACKS_TEXT_KEY
+    private String LIFECYCLE_CALLBACKS_TEXT_KEY="callbacks";
 
     /* Constant values for the names of each respective lifecycle callback */
     private static final String ON_CREATE = "onCreate";
@@ -55,20 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
 
-        // COMPLETED (6) If savedInstanceState is not null and contains LIFECYCLE_CALLBACKS_TEXT_KEY, set that text on our TextView
-        /*
-         * If savedInstanceState is not null, that means our Activity is not being started for the
-         * first time. Even if the savedInstanceState is not null, it is smart to check if the
-         * bundle contains the key we are looking for. In our case, the key we are looking for maps
-         * to the contents of the TextView that displays our list of callbacks. If the bundle
-         * contains that key, we set the contents of the TextView accordingly.
-         */
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(LIFECYCLE_CALLBACKS_TEXT_KEY)) {
-                String allPreviousLifecycleCallbacks = savedInstanceState
-                        .getString(LIFECYCLE_CALLBACKS_TEXT_KEY);
-                mLifecycleDisplay.setText(allPreviousLifecycleCallbacks);
-            }
+        // TODO (6) If savedInstanceState is not null and contains LIFECYCLE_CALLBACKS_TEXT_KEY, set that text on our TextView
+        if (savedInstanceState!=null && savedInstanceState.containsKey(LIFECYCLE_CALLBACKS_TEXT_KEY)) {
+            mLifecycleDisplay.setText(savedInstanceState.getCharSequence(LIFECYCLE_CALLBACKS_TEXT_KEY));
         }
 
         logAndAppend(ON_CREATE);
@@ -143,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         logAndAppend(ON_RESTART);
     }
-    
+
     /**
      * The final call you receive before your activity is destroyed. This can happen either because
      * the activity is finishing (someone called finish() on it, or because the system is
@@ -157,17 +141,19 @@ public class MainActivity extends AppCompatActivity {
         logAndAppend(ON_DESTROY);
     }
 
-    // COMPLETED (2) Override onSaveInstanceState
+    // TODO (2) Override onSaveInstanceState
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // COMPLETED (3) Call super.onSaveInstanceState
         super.onSaveInstanceState(outState);
-        // COMPLETED (4) Call logAndAppend with the ON_SAVE_INSTANCE_STATE String
         logAndAppend(ON_SAVE_INSTANCE_STATE);
-        // COMPLETED (5) Put the text from the TextView in the outState bundle
-        String lifecycleDisplayTextViewContents = mLifecycleDisplay.getText().toString();
-        outState.putString(LIFECYCLE_CALLBACKS_TEXT_KEY, lifecycleDisplayTextViewContents);
+        outState.putCharSequence(LIFECYCLE_CALLBACKS_TEXT_KEY, mLifecycleDisplay.getText());
     }
+
+    // Do steps 3 - 5 within onSaveInstanceState
+    // TODO (3) Call super.onSaveInstanceState
+    // TODO (4) Call logAndAppend with the ON_SAVE_INSTANCE_STATE String
+    // TODO (5) Put the text from the TextView in the outState bundle
 
     /**
      * Logs to the console and appends the lifecycle method name to the TextView so that you can
